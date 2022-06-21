@@ -5,7 +5,11 @@ import org.w3c.dom.ranges.Range;
 import java.util.*;
 import java.util.stream.IntStream;
 
-//https://leetcode.com/problems/valid-anagram/submissions/
+//https://leetcode.com/problems/top-k-frequent-elements/
+
+/**
+ * Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+ */
 class TopKFrequentElements {
     public int[] topKFrequent(int[] nums, int k) {
 
@@ -16,16 +20,21 @@ class TopKFrequentElements {
             count.put(n,count.getOrDefault(n,0)+1);
         }
 
+        //Instantiate a list of lists from 0 to nums.length+1
         List<List<Integer>> frequency = new ArrayList<>();
         IntStream.range(0,nums.length+1).forEach((n)->{
             frequency.add(new ArrayList<>());
         });
 
+        // assign the frequency of the index, and put in the number
         for(Map.Entry<Integer,Integer> e: count.entrySet()){
             // this key occurse this value times
             frequency.get(e.getValue()).add(e.getKey());
         }
 
+        //Go from the end of the list and find j<k values
+        // if the list is not empty, then its one of the
+        // highest numbers of occurance.
         List<Integer> ret = new ArrayList<>();
         int j = 0;// while j<k
         for(int i = frequency.size()-1;i>=0 && j<k;i--){
