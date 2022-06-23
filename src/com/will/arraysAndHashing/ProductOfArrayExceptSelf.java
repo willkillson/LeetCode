@@ -8,31 +8,42 @@ import java.util.stream.IntStream;
 
 
 class ProductOfArrayExceptSelf {
+
+    /**
+     * Solution uses O(2n) space complexity
+     * O(n) time complexity
+     * @param nums
+     * @return
+     */
     public int[] productExceptSelf(int[] nums) {
-        int[] prefixArray = new int[nums.length];
-        int[] postfixArray = new int[nums.length];
+        int[] prefix = new int[nums.length];
+        int[] postfix = new int[nums.length];
 
-        prefixArray[0] = nums[0];
+        //calculate prefix
+        prefix[0] = nums[0];
         for(int i = 1;i< nums.length;i++){
-            prefixArray[i] = prefixArray[i-1] * nums[i];
+            prefix[i] = prefix[i-1]*nums[i];
         }
 
-        postfixArray[nums.length-1] = nums[nums.length-1];
+        //calculate postfix
+        postfix[nums.length-1] = nums[nums.length-1];
         for(int i = nums.length-2;i>=0;i--){
-            postfixArray[i] = postfixArray[i+1]*nums[i];
+            postfix[i] = postfix[i+1]*nums[i];
         }
 
+        //calculate the output in nums
         for(int i = 0;i< nums.length;i++){
-                //edgecase i = 0
+            //edge cases 0 and nums.length-1
             if(i==0){
-                nums[0] = 1 * postfixArray[1];
-            }else if( i==nums.length-1){
-                //edgecase i = length-2
-                nums[nums.length-1] = 1 * prefixArray[i-1];
+                nums[i] = postfix[i+1];
+
+            }else if(i==nums.length-1){
+                nums[i] = prefix[i-1];
             }else{
-                nums[i] = prefixArray[i-1] *postfixArray[i+1];
+                nums[i] = prefix[i-1]*postfix[i+1];
             }
         }
+
         return nums;
     }
 
