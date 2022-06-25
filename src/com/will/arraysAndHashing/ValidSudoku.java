@@ -6,65 +6,56 @@ import java.util.HashSet;
 class ValidSudoku {
 
     public boolean isValidSudoku(char[][] board) {
+
         //check rows
-        HashSet<Character> hs = new HashSet<>();
         for(int i = 0;i< board.length;i++){
-            hs = new HashSet<>();
+            HashSet<Character> hs = new HashSet<>();
             for(int j = 0;j< board[0].length;j++){
-                if(hs.contains(board[i][j]) && board[i][j]!='.'){
+                Character c = board[i][j];
+                if(hs.contains(c) && c!='.'){
                     return false;
                 }else{
-                    hs.add(board[i][j]);
+                    hs.add(c);
                 }
             }
         }
 
         //check columns
         for(int i = 0;i< board.length;i++){
-            hs = new HashSet<>();
+            HashSet<Character> hs = new HashSet<>();
             for(int j = 0;j< board[0].length;j++){
-                if(hs.contains(board[j][i]) && board[j][i]!='.'){
+                Character c = board[j][i];
+                if(hs.contains(c) && c!='.'){
                     return false;
                 }else{
-                    hs.add(board[j][i]);
+                    hs.add(c);
                 }
             }
         }
 
-        // top
-        // 1,1
-        // 1,4
-        // 1,7
-
-        //mid
-        // 4,1
-        // 4,4
-        // 4,7
-
-        //bot
-        // 7, 1
-        // 7, 4
-        // 7,7
-        //check 9 3x3's
-
-
+        //check 9x9 squares
         for(int i = 0;i< 3;i++){
             for(int j = 0;j< 3;j++){
-                hs = new HashSet<>();
-                int x = 1 + (i)*3;
-                int y = 1 + (j)*3;
-                for(int k =-1;k<= 1;k++){
+
+                int x = 1 + (3*i);
+                int y = 1 + (3*j);
+                //the 9x9
+                HashSet<Character> hs = new HashSet<>();
+                for(int k = -1;k<=1;k++){
                     for(int l = -1;l<=1;l++){
-                        if(hs.contains(board[x+k][y+l]) && board[x+k][y+l]!='.'){
+                        Character c = board[x+k][y+l];
+                        if(hs.contains(c) && c!='.'){
                             return false;
                         }else{
-                            hs.add(board[x+k][y+l]);
+                            hs.add(c);
                         }
                     }
                 }
+
             }
         }
         return true;
+
     }
 
     public static void main(String[] args) {

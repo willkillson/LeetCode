@@ -11,8 +11,27 @@ import java.util.stream.IntStream;
  * Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
  */
 class TopKFrequentElements {
-    public int[] topKFrequent(int[] nums, int k) {
 
+    public int[] topKFrequent(int[] nums, int k) {
+        // Count Map Value->Frequency
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for(int n:nums){
+            hm.put(n,hm.getOrDefault(n,0)+1);
+        }
+
+        //Order a list of values based on frequency in reverse
+        List<Integer> list = new ArrayList<>(hm.keySet());
+        Collections.sort(list, (n1,n2)-> hm.get(n2).compareTo(hm.get(n1)));
+
+        //Return first k of the list
+        int[] ret = new int[k];
+        for(int i = 0;i< k;i++){
+            ret[i] = list.get(i);
+        }
+        return ret;
+    }
+
+    public int[] topKFrequent2(int[] nums, int k) {
         // Find the frequency of each number
         // Number -> Frequency
         HashMap<Integer, Integer> count = new HashMap<>();
@@ -43,7 +62,6 @@ class TopKFrequentElements {
                 j = j + frequency.get(i).size();
             }
         }
-
         return ret.stream().mapToInt(Integer::intValue).toArray();
     }
 
