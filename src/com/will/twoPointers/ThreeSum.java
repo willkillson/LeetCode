@@ -6,7 +6,12 @@ import java.util.List;
 
 public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
+
+        List<Integer> list = new ArrayList<>();
+        list.add(3,1337);
+
         List<List<Integer>> ret = new ArrayList<>();
+
         // First sort nums
         Arrays.sort(nums);
         //Use easy number as a first value
@@ -16,7 +21,6 @@ public class ThreeSum {
             if(i>0 && nums[i] ==nums[i-1]){
                 continue;
             }
-
             int l = i+1;
             int r = nums.length-1;
             while(l<r){
@@ -42,6 +46,8 @@ public class ThreeSum {
         }
         return ret;
     }
+
+
     public static void main(String[] args) {
         List<List<Integer>> answer = new ThreeSum().threeSum(new int[]{-2,-2,0,0,2,2});
         System.out.println(answer);

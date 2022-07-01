@@ -31,6 +31,55 @@ class TopKFrequentElements {
         return ret;
     }
 
+    public int[] topKFrequent3(int[] nums, int k) {
+
+        // Map value -> frequency
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for(int i = 0;i< nums.length;i++){
+            hm.put(nums[i],hm.getOrDefault(nums[i],0)+1);
+        }
+
+        //Order a list of values by frequency
+
+        // List<Integer> list = new ArrayList<>(hm.keySet());
+        // Collections.sort(list, (n1,n2)-> hm.get(n2).compareTo(hm.get(n1)));
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i = 0;i< nums.length+1;i++){
+            list.add(null);
+        }
+        for(Integer key: hm.keySet()){
+            // assign the index the frequency and the value the value
+
+            if(list.get(hm.get(key))==null){
+                list.add(hm.get(key), new ArrayList<>());
+            }
+            list.get(hm.get(key)).add(key);
+        }
+
+        // // Return first k
+        // int[] ret = new int[k];
+        // for(int i = 0;i< k;i++){
+        //     ret[i] = list.get(i);
+        // }
+        int[] ret = new int[k];
+        int j = 0;
+        for(int i = list.size()-1;i>=0;i--){
+            if(j==k){
+                return ret;
+            }
+            if(list.get(i)!=null){
+                // add them all
+                for(int l = 0;l< list.get(i).size() && j<k;l++){
+                    ret[j] = list.get(i).get(l);
+                    j++;
+                }
+
+            }
+
+        }
+        return ret;
+    }
+
     public int[] topKFrequent2(int[] nums, int k) {
         // Find the frequency of each number
         // Number -> Frequency
@@ -70,6 +119,8 @@ class TopKFrequentElements {
 //        new TopKFrequentElements().topKFrequent(new int[]{1,2},2);
 //        new TopKFrequentElements().topKFrequent(new int[]{-1,-1},1);
 //        new TopKFrequentElements().topKFrequent(new int[]{1,1,7,7,7,7,7,3,3,3,4,4,4,4,4,4,4,4,4},2);
-        new TopKFrequentElements().topKFrequent(new int[]{4,1,-1,2,-1,2,3},2);
+
+
+        System.out.println(new TopKFrequentElements().topKFrequent3(new int[]{5,2,5,3,5,3,1,1,3},2));
     }
 }
