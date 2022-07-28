@@ -9,7 +9,6 @@ class Solution:
                     count += 1
             if(num < count):
                 num = count
-                
             
         return num +1
     
