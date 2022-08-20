@@ -4,9 +4,9 @@ class Solution:
             return False;
 
         hash = [0] * 27;
-        for c in s:
-            hash[ord(c)-ord('a')] += 1;
-            hash[ord(c)-ord('a')] -= 1;
+        for i in range(len(s)):
+            hash[ord(s[i])-ord('a')] += 1;
+            hash[ord(t[i])-ord('a')] -= 1;
             
         for n in range(27):
             if(hash[n]!= 0):
