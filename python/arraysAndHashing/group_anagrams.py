@@ -17,4 +17,3 @@ solution = Solution()
 
 ans = solution.groupAnagrams(strs)
 print(ans)
-# print("hello")
