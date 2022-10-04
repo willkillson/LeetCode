@@ -12,7 +12,7 @@ class Solution:
         list = [(k,v) for k, v in freq.items()];
 
         # Sort a list of tuples
-        list.sort(key=lambda e:e[1],reverse=True);
+        list.sort(key=lambda e:e[1],reverse=True); # Descending Order
 
         # Get the K items
         ret = []
