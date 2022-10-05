@@ -31,4 +31,3 @@ a1 = "rat"
 a2 = "car"
 
 print(s.isAnagram(a1,a2));   
-

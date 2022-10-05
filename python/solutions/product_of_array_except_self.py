@@ -31,43 +31,75 @@
 #                 ret.append(v)
                 
 #         return ret
+# class Solution:
+#     def productExceptSelf(self, nums):
+
+#         # prefix_array - [1,2,6,24]
+#         # postfix_array - [24,24,12,4]
+        
+#         # beg edge case = [postfix_array[1]]
+#         # end edge case = [prefix_array[len(nums)-2]]
+#         # middle cases = [prefix_array[i-1]* postfix_array[i+1]]
+
+#         prefix_array = []
+#         for i in range(len(nums)):
+#             if i == 0:
+#                 prefix_array.append(nums[i])
+#             else:
+#                 prefix_array.append(prefix_array[i-1] * nums[i])
+
+#         reversed_nums = nums[::-1]
+#         postfix_array = []
+#         for i in range(len(reversed_nums)):
+#             if i == 0:
+#                 postfix_array.append(nums[i])
+#             else:
+#                 postfix_array.append(prefix_array[i-1] * nums[i])
+#         postfix_array = postfix_array[::-1]
+
+#         ret_nums = []
+#         for i in range(len(nums)):
+#             if i == 0:
+#                 n = postfix_array[i+1]
+#             elif i == len(nums):
+#                 n = prefix_array[i-1]
+#             else:
+#                 n = prefix_array[i-1] * postfix_array[i+1]
+#             ret_nums.append(n)
+
+#         return ret_nums
+
 class Solution:
     def productExceptSelf(self, nums):
-
-        # prefix_array - [1,2,6,24]
-        # postfix_array - [24,24,12,4]
+        # prefix array
+        # postfix array
         
-        # beg edge case = [postfix_array[1]]
-        # end edge case = [prefix_array[len(nums)-2]]
-        # middle cases = [prefix_array[i-1]* postfix_array[i+1]]
 
-        prefix_array = []
+        pre = [0] * len(nums) 
         for i in range(len(nums)):
             if i == 0:
-                prefix_array.append(nums[i])
+                pre[0] = nums[0]
+                continue
             else:
-                prefix_array.append(prefix_array[i-1] * nums[i])
+                pre[i] = nums[i] * pre[i-1]
 
-        reversed_nums = nums[::-1]
-        postfix_array = []
-        for i in range(len(reversed_nums)):
-            if i == 0:
-                postfix_array.append(nums[i])
+        post = [0] * len(nums) 
+        for i in range(len(nums)-1, -1, -1):
+            if i == len(nums)-1:
+                post[i] = nums[i]
             else:
-                postfix_array.append(prefix_array[i-1] * nums[i])
-        postfix_array = postfix_array[::-1]
+                post[i] = nums[i] * post[i+1]
 
-        ret_nums = []
+        ret = []
         for i in range(len(nums)):
             if i == 0:
-                n = postfix_array[i+1]
-            elif i == len(nums):
-                n = prefix_array[i-1]
+                ret.append(post[i+1])
+            elif i == len(nums)-1:
+                ret.append(pre[i-1])
             else:
-                n = prefix_array[i-1] * postfix_array[i+1]
-            ret_nums.append(n)
-
-        return ret_nums
+                ret.append(post[i+1] * pre[i-1])
+        return ret
+        
 
         
             
